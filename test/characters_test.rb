@@ -39,4 +39,10 @@ class CharactersTest < Minitest::Test
 
     assert_equal ["..", "..", ".."], char_set.latin_braille[" "]
   end
+
+  def test_it_returns_nil_if_unknown
+    char_set = Characters.new
+
+    assert_equal nil, char_set.latin_braille[">"]
+  end
 end

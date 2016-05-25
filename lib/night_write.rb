@@ -44,3 +44,5 @@ if __FILE__ == $0
   File.write(ARGV[1], output)
   puts "Created '#{ARGV[1]}' containing #{latin_text.chomp.length} characters"
 end
+# this may work for the character count
+# num.each_slice(39).to_a

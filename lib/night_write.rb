@@ -1,21 +1,21 @@
-require "./lib/file_reader"
 require "./lib/characters"
+# require "./lib/file_reader"
 
 class NightWrite
-  attr_reader :reader,
-              :characters
+  attr_reader :characters
+              # :reader
 
   def initialize
-    @reader = FileReader.new
+    # @reader = FileReader.new
     @characters = Characters.new
   end
 
-  def encode_file_to_braille
-    plain = reader.read.chomp
-    braille = encode_to_braille(plain)
-    File.open(ARGV[1], 'w') { |file| file.write(braille) }
-    puts "Created '#{ARGV[1]}' containing #{plain.chomp.length} characters"
-  end
+  # def encode_file_to_braille
+  #   plain = reader.read.chomp
+  #   braille = encode_to_braille(plain)
+  #   File.open(ARGV[1], 'w') { |file| file.write(braille) }
+  #   puts "Created '#{ARGV[1]}' containing #{plain.chomp.length} characters"
+  # end
 
   def encode_to_braille(input)
     elements = input.to_s.chars
@@ -29,5 +29,15 @@ class NightWrite
   end
 end
 
-night = NightWrite.new
-puts night.encode_file_to_braille
+if __FILE__ == $0
+  latin_text = File.read(ARGV[0]).chomp
+  night_write = NightWrite.new
+  output = night_write.encode_to_braille(latin_text)
+  File.write(ARGV[1], output)
+  puts "Created '#{ARGV[1]}' containing #{latin_text.chomp.length} characters"
+end
+
+# if __FILE__ == $0
+#   night = NightWrite.new
+#   puts night.encode_file_to_braille
+# end

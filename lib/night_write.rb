@@ -1,31 +1,39 @@
 require "./lib/characters"
-# require "./lib/file_reader"
 
 class NightWrite
   attr_reader :characters
-              # :reader
 
   def initialize
-    # @reader = FileReader.new
     @characters = Characters.new
   end
 
-  # def encode_file_to_braille
-  #   plain = reader.read.chomp
-  #   braille = encode_to_braille(plain)
-  #   File.open(ARGV[1], 'w') { |file| file.write(braille) }
-  #   puts "Created '#{ARGV[1]}' containing #{plain.chomp.length} characters"
-  # end
+  def encode_to_braille(string)
+    indices = input_to_array(string)
+    braille_letter = assign_latin_key_to_braille_value(indices)
+    braille_letter_line = parse_by_braille_letter_index(braille_letter)
+    output = format_letter_to_three_lines(braille_letter_line)
+  end
 
-  def encode_to_braille(input)
-    elements = input.to_s.chars
-    braille_elements = elements.map do |letter|
+  def input_to_array(input)
+    input.to_s.chars
+  end
+
+  def assign_latin_key_to_braille_value(input)
+    input.map do |letter|
       characters.latin_braille[letter]
-    end.transpose
-    line_1 = braille_elements[0].join
-    line_2 = braille_elements[1].join
-    line_3 = braille_elements[2].join
-    "#{line_1}\n#{line_2}\n#{line_3}\n\n"
+    end
+  end
+
+  def parse_by_braille_letter_index(input)
+    input.transpose
+  end
+
+  def format_letter_to_three_lines(input)
+    lines = []
+    3.times do |i|
+      lines << input[i].join
+    end
+    lines.join("\n")
   end
 end
 
@@ -36,8 +44,3 @@ if __FILE__ == $0
   File.write(ARGV[1], output)
   puts "Created '#{ARGV[1]}' containing #{latin_text.chomp.length} characters"
 end
-
-# if __FILE__ == $0
-#   night = NightWrite.new
-#   puts night.encode_file_to_braille
-# end

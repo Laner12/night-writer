@@ -1,30 +1,32 @@
 require "./lib/characters"
-# require "./lib/file_reader"
 
 class NightRead
   attr_reader :characters
-              # :reader
 
   def initialize
-    # @reader = FileReader.new
     @characters = Characters.new
   end
 
-  # def decode_file_to_latin
-  #   plain = reader.read.chomp
-  #   latin = decode_to_latin(plain)
-  #   File.open(ARGV[1], 'w') { |file| file.write(latin) }
-  #   puts "Created '#{ARGV[1]}' containing #{plain.chomp.length / 6} characters"
-  # end
+  def decode_to_latin(braille)
+    braille_lines = input_to_array(braille)
+    latin_elements = finding_x_axis_pairs(braille_lines)
+    output = assign_braille_key_to_latin_value(latin_elements)
+  end
 
-  def decode_to_latin(input)
-    braille_lines = input.split("\n")
-    latin_elements = braille_lines.map do |i|
-      i.scan(/../)
+  def input_to_array(input)
+    input.split("\n")
+  end
+
+  def finding_x_axis_pairs(input)
+    input.map do |elements|
+      elements.scan(/../)
     end.transpose
-    output = latin_elements.map do |i|
+  end
+
+  def assign_braille_key_to_latin_value(input)
+    input.map do |letter|
       braille_latin = characters.latin_braille.invert
-      braille_latin[i]
+      braille_latin[letter]
     end.join
   end
 end

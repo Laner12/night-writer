@@ -48,7 +48,5 @@ class Characters
       latin_braille["?"] = ["..", "0.", "00"]
       latin_braille["Shift"] = ["..", "..", ".0"]
       latin_braille[" "] = ["..", "..", ".."]
-      # play with adding \n and parsing
-      # latin_braille["A"] = ["..", "..", ".0", ".0", ".0", "00"]
   end
 end

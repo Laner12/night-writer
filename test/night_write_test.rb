@@ -74,7 +74,7 @@ class NightWriteTest < Minitest::Test
     input = [["0."], [".."], [".."]]
     action = night.format_letter_to_three_lines(input)
 
-    assert_equal "0.\n..\n..", action
+    assert_equal ["0.", "..", ".."], action
   end
 
   def test_format_two_letters_to_three_lines
@@ -82,22 +82,6 @@ class NightWriteTest < Minitest::Test
     input = [["0.", "0."], ["0.", ".."], ["0.", ".."]]
     action = night.format_letter_to_three_lines(input)
 
-    assert_equal "0.0.\n0...\n0...", action
-  end
-
-  def test_encoding_a_letter_to_braille
-    night = NightWrite.new
-    input = "a"
-    action = night.encode_to_braille(input)
-
-    assert_equal "0.\n..\n..", action
-  end
-
-  def test_encoding_a_word_to_braille
-    night = NightWrite.new
-    input = "lane"
-    action = night.encode_to_braille(input)
-
-    assert_equal "0.0.000.\n0....0.0\n0...0...", action
+    assert_equal ["0.0.", "0...", "0..."], action
   end
 end

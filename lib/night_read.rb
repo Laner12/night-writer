@@ -14,20 +14,19 @@ class NightRead
   end
 
   def parsing_back_into_three_lines(input)
-    string_lines = []
-    current_value = 0
-    temp_array = input.split("\n")
-    next_value = 3
-    until temp_array.count == 3
-      temp_array[current_value] += temp_array[next_value]
-      temp_array.delete_at(next_value)
-      if current_value == 2
-        current_value = 0
+    starting_index = 0
+    braille_lines = input.split("\n")
+    index_to_join = 3
+    until braille_lines.count == 3
+      braille_lines[starting_index] += braille_lines[index_to_join]
+      braille_lines.delete_at(index_to_join)
+      if starting_index == 2
+        starting_index = 0
       else
-        current_value += 1
+        starting_index += 1
       end
     end
-    input = temp_array
+    input = braille_lines
   end
 
   def finding_x_axis_pairs(input)
@@ -49,5 +48,5 @@ if __FILE__ == $0
   night_read = NightRead.new
   output = night_read.decode_to_latin(braille_text)
   File.write(ARGV[1], output)
-  puts "Created '#{ARGV[1]}' containing #{braille_text.chomp.length / 6} characters"
+  puts "Created '#{ARGV[1]}' containing #{(braille_text.chomp.length / 6) + 3} characters"
 end

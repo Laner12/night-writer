@@ -12,13 +12,13 @@ class CharactersTest < Minitest::Test
   def test_it_has_correct_number_of_keys
     char_set = Characters.new
 
-    assert_equal 45, char_set.latin_braille.keys.count
+    assert_equal 71, char_set.latin_braille.keys.count
   end
 
   def test_it_has_correct_number_of_values
     char_set = Characters.new
 
-    assert_equal 45, char_set.latin_braille.values.count
+    assert_equal 71, char_set.latin_braille.values.count
   end
 
   def test_it_returns_arrays

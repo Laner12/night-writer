@@ -11,8 +11,8 @@ class NightWrite
     indices = input_to_array(string)
     braille_letter = assign_latin_key_to_braille_value(indices)
     braille_letter_line = parse_by_braille_letter_index(braille_letter)
-    output = format_letter_to_three_lines(braille_letter_line)
-    output_to_file(output)
+    format_letter_to_three_lines(braille_letter_line)
+    # output_to_file(output)
   end
 
   def input_to_array(input)
@@ -34,19 +34,19 @@ class NightWrite
     3.times do |i|
       lines << input[i].join
     end
-    lines
+    lines.join("\n")
   end
 
-  def output_to_file(input)
-    string = ""
-    while input[0].length > 80
-      input.each do |line_chunks|
-        line = line_chunks.slice!(0..79)
-        string << line + "\n"
-      end
-    end
-    string
-  end
+  # def output_to_file(input)
+  #   string = ""
+  #   while input[0].length > 80
+  #     input.each do |line_chunks|
+  #       line = line_chunks.slice!(0..79)
+  #       string << line + "\n"
+  #     end
+  #   end
+  #   string
+  # end
 end
 
 if __FILE__ == $0

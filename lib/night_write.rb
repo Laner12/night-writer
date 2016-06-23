@@ -1,5 +1,5 @@
 require "./lib/characters"
-require "pry"
+
 class NightWrite
   attr_reader :characters
 

@@ -2,15 +2,18 @@ require "./lib/characters"
 
 class NightRead
   attr_reader :characters
+  attr_accessor :output
 
   def initialize
     @characters = Characters.new
+    @output = ""
   end
 
   def decode_to_latin(input)
     braille = parsing_back_into_three_lines(input)
     latin_elements = finding_x_axis_pairs(braille)
-    output = assign_braille_key_to_latin_value(latin_elements)
+    final_format = combine_for_translation(latin_elements)
+    assign_braille_key_to_latin_value(final_format)
   end
 
   def parsing_back_into_three_lines(input)
@@ -30,16 +33,32 @@ class NightRead
   end
 
   def finding_x_axis_pairs(input)
-    input.map do |elements|
-      elements.scan(/../)
+    input.map do |letter_fragments|
+      letter_fragments.scan(/../)
     end.transpose
   end
 
-  def assign_braille_key_to_latin_value(input)
+  def combine_for_translation(input)
     input.map do |letter|
-      braille_latin = characters.latin_braille.invert
-      braille_latin[letter]
-    end.join
+      letter.join
+    end
+  end
+
+  def assign_braille_key_to_latin_value(input)
+    index = 0
+    next_index = index + 1
+    until index == input.length
+      if input[index] == ".....0"
+        input[next_index] = input[index] + input[next_index]
+      elsif input[index] == ".0.000"
+        input[next_index] = input[index] + input[next_index]
+      else
+        @output += characters.braille_latin[input[index]]
+      end
+      index += 1
+      next_index += 1
+    end
+    @output
   end
 end
 

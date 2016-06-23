@@ -39,7 +39,7 @@ class NightWrite
 
   def output_to_file(input)
     string = ""
-    while input[0].length > 80
+    while input[0].length > 0
       input.each do |line_chunks|
         line = line_chunks.slice!(0..79)
         string << line + "\n"

@@ -1,4 +1,5 @@
 require "./lib/characters"
+require "pry"
 
 class NightRead
   attr_reader :characters
@@ -11,6 +12,7 @@ class NightRead
     braille = parsing_back_into_three_lines(input)
     latin_elements = finding_x_axis_pairs(braille)
     output = assign_braille_key_to_latin_value(latin_elements)
+    binding.pry
   end
 
   def parsing_back_into_three_lines(input)
@@ -28,7 +30,7 @@ class NightRead
     end
     input = braille_lines
   end
-
+# start bug fixn here
   def finding_x_axis_pairs(input)
     input.map do |elements|
       elements.scan(/../)
@@ -37,8 +39,8 @@ class NightRead
 
   def assign_braille_key_to_latin_value(input)
     input.map do |letter|
-      braille_latin = characters.latin_braille.invert
-      braille_latin[letter]
+      # braille_latin = characters.latin_braille.invert
+      characters.braille_latin[letter]
     end.join
   end
 end
